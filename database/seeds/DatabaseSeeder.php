@@ -11,6 +11,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $tables = [
+            'subscriptions',
+            'series',
+            'users',
+        ];
+
+        foreach($tables as $table)
+        {
+            DB::table($table)->delete();
+        }
+
+        $this->call(UsersTableSeeder::class);
+        $this->call(SeriesTableSeeder::class);
+        $this->call(SubscriptionsTableSeeder::class);
+    }
     }
 }
