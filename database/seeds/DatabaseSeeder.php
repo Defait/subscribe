@@ -26,5 +26,4 @@ class DatabaseSeeder extends Seeder
         $this->call(SeriesTableSeeder::class);
         $this->call(SubscriptionsTableSeeder::class);
     }
-    }
 }
