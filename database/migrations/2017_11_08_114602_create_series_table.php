@@ -17,7 +17,7 @@ class CreateSeriesTable extends Migration
             $table->increments('id');
             $table->string('title')->unique();
             $table->string('slug')->unique();
-            $table->string('synopsis');
+            $table->text('synopsis');
             $table->string('cover_img_location')->nullable();
             $table->string('url_location')->nullable();
             $table->boolean('is_published')->default(true);
