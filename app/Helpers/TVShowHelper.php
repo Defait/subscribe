@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use App\Series;
 use GuzzleHttp\Client;
-//use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ClientException;
 
@@ -21,9 +21,13 @@ class TVShowHelper
         return $show;
     }
 
-    public function getEpisodesForShow()
+    public function getEpisodesForShow($show)
     {
-        //
+        $url = $show->url_location . '/episodes';
+
+        $episodes = $this->getDataFromPage($url);
+
+        return $episodes;
     }
 
     public function createSeries($url)
@@ -42,6 +46,7 @@ class TVShowHelper
 
         return $series;
     }
+
 
     function checkForDuplicates($show)
     {
@@ -98,7 +103,7 @@ class TVShowHelper
                     $series = Series::create([
                         'title' => $show->name,
                         'slug' => str_slug($show->name),
-                        'synopsis' => isset($show->summary),
+                        'synopsis' => isset($show->summary), // Okay use normal laravel validation instead of isset which just checks whether the value exists:)
                         'url_location' => $show->_links->self->href,
                         'cover_img_location' => isset($show->image->original),
                     ]);
@@ -137,10 +142,9 @@ class TVShowHelper
         return $allURLS;
     }
 
-    function getShowsFromPage($url)
+    function getDataFromPage($url)
     {
         $client = new Client();
-
         $data = $client->request('GET', $url);
 
         return $data->getBody();

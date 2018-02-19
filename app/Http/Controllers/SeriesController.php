@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Series;
 use Illuminate\Http\Request;
+use App\Helpers\TVShowHelper;
 
 class SeriesController extends Controller
 {
@@ -54,9 +55,11 @@ class SeriesController extends Controller
      */
     public function show($slug)
     {
+        $tvShow = new TVShowHelper;
         $series = Series::where('slug', $slug)->first();
+        $episodes = $tvShow->getEpisodesForShow($series);
 
-        return view('series.show', compact('series'));z
+        return view('series.show', compact('series', 'episodes'));
     }
 
     /**

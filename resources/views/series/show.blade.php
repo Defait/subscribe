@@ -2,4 +2,5 @@
 
 @section('content')
     {{ $series->title }}
+    {{ $episodes}}
 @endsection
