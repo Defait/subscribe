@@ -1,0 +1,14 @@
+1. GetTVShow. Skip failures.
+
+determine max amount of pages
+send get request to page
+take show
+check validity
+call create
+back to take show
+
+2. Show shows and info
+3. Subscribe to shows (using Vuejs)
+4. Show new episodes ordered.
+5. Open 
+-

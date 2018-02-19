@@ -35,7 +35,10 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Subscription::create([
+            'user_id' => Auth::user()->id,
+            'series_id' => $request->series_id,
+        ]);
     }
 
     /**

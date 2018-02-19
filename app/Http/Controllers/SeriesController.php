@@ -14,7 +14,9 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        //
+        $series = Series::get();
+
+        return view('series.index', compact('series'));
     }
 
     /**
@@ -35,7 +37,13 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Series::create([
+            'title' => $request->name,
+            'slug' => str_slug($request->name),
+            'synopsis' => $request->summary,
+            'url_location' => $request->_links->self->href,
+            'cover_img_location' => $request->image->original,
+        ]);        
     }
 
     /**
@@ -44,9 +52,11 @@ class SeriesController extends Controller
      * @param  \App\Series  $series
      * @return \Illuminate\Http\Response
      */
-    public function show(Series $series)
+    public function show($slug)
     {
-        //
+        $series = Series::where('slug', $slug)->first();
+
+        return view('series.show', compact('series'));z
     }
 
     /**
